@@ -1,8 +1,11 @@
-from pydantic import BaseModel
+from sqlalchemy import Column, Integer, String, Float
+from backend.database.database import Base
 
-class Producto(BaseModel):
-  id: int
-  nombre: str
-  precio: float
-  url: str
 
+class Producto(Base):
+    __tablename__ = "productos"
+
+    id = Column(Integer, primary_key=True, index=True)
+    nombre = Column(String(100), nullable=False)
+    precio = Column(Float, nullable=False)
+    url = Column(String(255), nullable=False)
