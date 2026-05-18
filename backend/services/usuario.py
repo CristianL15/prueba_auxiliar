@@ -1,21 +1,36 @@
+from sqlalchemy.orm import Session
 from backend.models.usuario import Usuario
 
-# Buscar como implementar ORM
-def listarUsuarios():
-    return
+def listarUsuarios(db: Session):
+  return db.query(Usuario).all()
 
 
-def obtenerUsuario(usuarioId: int):
-    return
+def obtenerUsuario(usuarioId: int, db: Session):
+  return db.query(Usuario).filter(Usuario.id == usuarioId).first()
 
 
-def crearUsuario(usuario: Usuario):
-    return
+def crearUsuario(usuario: Usuario, db: Session):
+  dbUsuario = Usuario(nombre=usuario.nombre, email=usuario.email, contraseña=usuario.contraseña)
+  db.add(dbUsuario)
+  db.commit()
+  db.refresh(dbUsuario)
+  return dbUsuario
 
 
-def modificarUsuario(usuarioId: int, usuario: Usuario):
-    return
+def actualizarUsuario(usuarioId: int, usuario: Usuario, db: Session):
+  dbUsuario = db.query(Usuario).filter(Usuario.id == usuarioId).first()
+  if dbUsuario:
+    dbUsuario.nombre = usuario.nombre
+    dbUsuario.email = usuario.email
+    dbUsuario.contraseña = usuario.contraseña
+    db.commit()
+    db.refresh(dbUsuario)
+  return dbUsuario
 
 
-def eliminarUsuario(usuarioId: int):
-    return
+def eliminarUsuario(usuarioId: int, db: Session):
+  dbUsuario = db.query(Usuario).filter(Usuario.id == usuarioId).first()
+  if dbUsuario:
+    db.delete(dbUsuario)
+    db.commit()
+  return dbUsuario
