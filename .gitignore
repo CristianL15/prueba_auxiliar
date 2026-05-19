@@ -1,7 +1,25 @@
-.venv
-.env
-
+# Python
+.venv/
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
+
+# Environment
+.env
+
+# Frontend
+node_modules/
+dist/
+.astro/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
