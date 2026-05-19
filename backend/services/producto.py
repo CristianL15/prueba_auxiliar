@@ -1,5 +1,6 @@
 from sqlalchemy.orm import Session
 from backend.models.producto import Producto
+from backend.schemas.producto import ProductoIn
 
 def listarProductos(db: Session):
   return db.query(Producto).all()
@@ -9,7 +10,7 @@ def obtenerProducto(productoId: int, db: Session):
   return db.query(Producto).filter(Producto.id == productoId).first()
 
 
-def crearProducto(producto: Producto, db: Session):
+def crearProducto(producto: ProductoIn, db: Session):
   dbProducto = Producto(nombre=producto.nombre, precio=producto.precio, url=producto.url)
   db.add(dbProducto)
   db.commit()
@@ -17,7 +18,7 @@ def crearProducto(producto: Producto, db: Session):
   return dbProducto
 
 
-def actualizarProducto(productoId: int, producto: Producto, db: Session):
+def actualizarProducto(productoId: int, producto: ProductoIn, db: Session):
   dbProducto = db.query(Producto).filter(Producto.id == productoId).first()
   if dbProducto:
     dbProducto.nombre = producto.nombre

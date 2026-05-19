@@ -1,5 +1,6 @@
 from sqlalchemy.orm import Session
 from backend.models.compra import Compra
+from backend.schemas.compra import CompraIn
 
 def listarCompras(db: Session):
   return db.query(Compra).all()
@@ -9,8 +10,8 @@ def obtenerCompra(compraId: int, db: Session):
   return db.query(Compra).filter(Compra.id == compraId).first()
 
 
-def crearCompra(compra: Compra, db: Session):
-  dbCompra = Compra(usuario_id=compra.usuario_id, producto_id=compra.producto_id, total_productos=compra.total_productos)
+def crearCompra(compra: CompraIn, db: Session):
+  dbCompra = Compra(usuario_id=compra.usuario_id, producto_id=compra.producto_id, cantidad=compra.cantidad)
   db.add(dbCompra)
   db.commit()
   db.refresh(dbCompra)

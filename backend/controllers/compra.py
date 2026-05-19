@@ -1,17 +1,17 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from backend.database.database import get_db
-from backend.models.compra import Compra
+from backend.schemas.compra import CompraIn, CompraOut
 from backend.services import compras as servicioCompras
 
 router = APIRouter(prefix="/compras")
 
-@router.get("/")
+@router.get("/", response_model=list[CompraOut])
 def listarCompras(db: Session = Depends(get_db)):
   return servicioCompras.listarCompras(db)
 
 
-@router.get("/{compraId}")
+@router.get("/{compraId}", response_model=CompraOut)
 def obtenerCompra(compraId: int, db: Session = Depends(get_db)):
   compra = servicioCompras.obtenerCompra(compraId, db)
   if not compra:
@@ -19,8 +19,8 @@ def obtenerCompra(compraId: int, db: Session = Depends(get_db)):
   return compra
 
 
-@router.post("/")
-def crearCompra(compra: Compra, db: Session = Depends(get_db)):
+@router.post("/", response_model=CompraOut)
+def crearCompra(compra: CompraIn, db: Session = Depends(get_db)):
   return servicioCompras.crearCompra(compra, db)
 
 
