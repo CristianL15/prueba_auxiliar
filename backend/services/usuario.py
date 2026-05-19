@@ -1,6 +1,12 @@
+import bcrypt
 from sqlalchemy.orm import Session
 from backend.models.usuario import Usuario
 from backend.schemas.usuario import UsuarioIn
+
+def hash_password(password: str) -> str:
+    salt = bcrypt.gensalt()
+    hashed = bcrypt.hashpw(password.encode('utf-8'), salt)
+    return hashed.decode('utf-8')
 
 def listarUsuarios(db: Session):
   return db.query(Usuario).all()
@@ -11,7 +17,7 @@ def obtenerUsuario(usuarioId: int, db: Session):
 
 
 def crearUsuario(usuario: UsuarioIn, db: Session):
-  dbUsuario = Usuario(nombre=usuario.nombre, email=usuario.email, contraseña=usuario.contraseña)
+  dbUsuario = Usuario(nombre=usuario.nombre, email=usuario.email, contraseña=hash_password(usuario.contraseña))
   db.add(dbUsuario)
   db.commit()
   db.refresh(dbUsuario)
@@ -23,7 +29,7 @@ def actualizarUsuario(usuarioId: int, usuario: UsuarioIn, db: Session):
   if dbUsuario:
     dbUsuario.nombre = usuario.nombre
     dbUsuario.email = usuario.email
-    dbUsuario.contraseña = usuario.contraseña
+    dbUsuario.contraseña = hash_password(usuario.contraseña)
     db.commit()
     db.refresh(dbUsuario)
   return dbUsuario
