@@ -1,0 +1,24 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Inicio">
+  <p style="color: #4a5568; font-size: 1.05rem;">
+    Sistema de gestión para usuarios, productos y compras.
+  </p>
+
+  <div class="home-grid">
+    <a href="/usuarios" class="home-card">
+      <h2>👤 Usuarios</h2>
+      <p>Registrar, editar y eliminar usuarios del sistema.</p>
+    </a>
+    <a href="/productos" class="home-card">
+      <h2>📦 Productos</h2>
+      <p>Administrar catálogo de productos con precios e imágenes.</p>
+    </a>
+    <a href="/compras" class="home-card">
+      <h2>🛒 Compras</h2>
+      <p>Registrar compras de usuarios sobre productos.</p>
+    </a>
+  </div>
+</Layout>

@@ -1,0 +1,234 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family:
+          system-ui,
+          -apple-system,
+          sans-serif;
+        background: #f4f5f7;
+        color: #1a1a2e;
+        min-height: 100vh;
+      }
+
+      nav {
+        background: #1a1a2e;
+        padding: 1rem 2rem;
+        display: flex;
+        gap: 1.5rem;
+        align-items: center;
+      }
+
+      nav a {
+        color: #e0e0e0;
+        text-decoration: none;
+        font-weight: 500;
+        padding: 0.4rem 0.8rem;
+        border-radius: 6px;
+        transition: background 0.2s;
+      }
+
+      nav a:hover,
+      nav a.activo {
+        background: #16213e;
+        color: #fff;
+      }
+
+      nav .marca {
+        color: #fff;
+        font-weight: 700;
+        font-size: 1.2rem;
+        margin-right: 1rem;
+      }
+
+      main {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 2rem;
+      }
+
+      h1 {
+        margin-bottom: 1.5rem;
+      }
+
+      .tabla {
+        width: 100%;
+        border-collapse: collapse;
+        background: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .tabla th {
+        background: #16213e;
+        color: #fff;
+        text-align: left;
+        padding: 0.75rem;
+        font-weight: 600;
+      }
+
+      .tabla td {
+        padding: 0.75rem;
+        border-bottom: 1px solid #e0e0e0;
+      }
+
+      .tabla tr:hover td {
+        background: #f0f0f5;
+      }
+
+      .tabla .acciones {
+        display: flex;
+        gap: 0.4rem;
+      }
+
+      .btn {
+        border: none;
+        padding: 0.45rem 0.9rem;
+        border-radius: 6px;
+        font-size: 0.85rem;
+        cursor: pointer;
+        font-weight: 500;
+        transition: opacity 0.2s;
+      }
+
+      .btn:hover {
+        opacity: 0.85;
+      }
+
+      .btn-crear {
+        background: #0f3460;
+        color: #fff;
+        margin-bottom: 1rem;
+      }
+
+      .btn-editar {
+        background: #e2e8f0;
+        color: #1a1a2e;
+      }
+
+      .btn-eliminar {
+        background: #e53e3e;
+        color: #fff;
+      }
+
+      .btn-guardar {
+        background: #0f3460;
+        color: #fff;
+      }
+
+      .btn-cancelar {
+        background: #a0aec0;
+        color: #fff;
+      }
+
+      .formulario {
+        background: #fff;
+        padding: 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+        margin-bottom: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .formulario h3 {
+        margin-bottom: 0.5rem;
+      }
+
+      .formulario label {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        font-weight: 500;
+        font-size: 0.9rem;
+      }
+
+      .formulario input,
+      .formulario select {
+        padding: 0.55rem 0.7rem;
+        border: 1px solid #cbd5e0;
+        border-radius: 6px;
+        font-size: 0.95rem;
+      }
+
+      .formulario .form-acciones {
+        display: flex;
+        gap: 0.6rem;
+        margin-top: 0.5rem;
+      }
+
+      .error {
+        color: #e53e3e;
+        font-size: 0.9rem;
+      }
+
+      .home-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+      }
+
+      .home-card {
+        background: #fff;
+        border-radius: 8px;
+        padding: 1.5rem;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+        text-decoration: none;
+        color: inherit;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+      }
+
+      .home-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .home-card h2 {
+        margin-bottom: 0.5rem;
+      }
+
+      .home-card p {
+        color: #4a5568;
+        font-size: 0.95rem;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <span class="marca">CRUD</span>
+      <a href="/">Inicio</a>
+      <a href="/usuarios">Usuarios</a>
+      <a href="/productos">Productos</a>
+      <a href="/compras">Compras</a>
+    </nav>
+    <main>
+      <h1>{title}</h1>
+      <slot />
+    </main>
+  </body>
+</html>
